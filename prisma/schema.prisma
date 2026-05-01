@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String             @id @default(cuid())
+  name      String?
+  email     String             @unique
+  password  String?
+  image     String?
+  role      Role               @default(USER)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  sessions  InterviewSession[]
+  accounts  Account[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Topic {
+  id          String             @id @default(cuid())
+  name        String             @unique
+  description String?
+  icon        String?
+  createdAt   DateTime           @default(now())
+  sessions    InterviewSession[]
+  questions   Question[]
+}
+
+model Question {
+  id         String            @id @default(cuid())
+  topicId    String
+  sessionId  String?
+  content    String
+  difficulty Difficulty        @default(MEDIUM)
+  createdAt  DateTime          @default(now())
+  topic      Topic             @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  session    InterviewSession? @relation(fields: [sessionId], references: [id])
+  answers    Answer[]
+}
+
+model InterviewSession {
+  id          String        @id @default(cuid())
+  userId      String
+  topicId     String
+  totalScore  Float?
+  status      SessionStatus @default(IN_PROGRESS)
+  createdAt   DateTime      @default(now())
+  completedAt DateTime?
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic       Topic         @relation(fields: [topicId], references: [id])
+  answers     Answer[]
+  questions   Question[]
+}
+
+model Answer {
+  id         String           @id @default(cuid())
+  sessionId  String
+  questionId String
+  userAnswer String
+  aiFeedback String?
+  aiScore    Float?
+  createdAt  DateTime         @default(now())
+  session    InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  question   Question         @relation(fields: [questionId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum SessionStatus {
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}
