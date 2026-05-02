@@ -15,7 +15,7 @@ MockMate is a premium, AI-driven platform designed to transform your interview p
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
+- **Framework**: [Next.js 16+](https://nextjs.org/) (App Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) with Custom Glassmorphism
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **AI Engine**: [Google Gemini AI](https://deepmind.google/technologies/gemini/) (via Vercel AI SDK)
@@ -33,18 +33,21 @@ MockMate is a premium, AI-driven platform designed to transform your interview p
 ### Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/yourusername/mockmate.git
    cd mockmate
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Set up Environment Variables**:
    Create a `.env` file in the root directory:
+
    ```env
    DATABASE_URL="postgresql://user:password@localhost:5432/mockmate"
    NEXTAUTH_SECRET="your-secret"
@@ -52,6 +55,7 @@ MockMate is a premium, AI-driven platform designed to transform your interview p
    ```
 
 4. **Database Setup**:
+
    ```bash
    npx prisma generate
    npx prisma db push
