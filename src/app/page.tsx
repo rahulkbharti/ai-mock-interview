@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Brain, Trophy, Target, Zap, Shield, Star, ArrowRight } from "lucide-react";
+import Footer from "@/components/shared/Footer";
 
 export default function Home() {
   return (
@@ -147,21 +148,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-20 border-t border-zinc-900 bg-zinc-950">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-2">
-            <Brain className="w-6 h-6 text-indigo-400" />
-            <span className="text-xl font-bold">MockMate</span>
-          </div>
-          <p className="text-zinc-500 text-sm">© 2024 MockMate AI. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="text-zinc-500 hover:text-white transition-colors">Twitter</Link>
-            <Link href="#" className="text-zinc-500 hover:text-white transition-colors">GitHub</Link>
-            <Link href="#" className="text-zinc-500 hover:text-white transition-colors">LinkedIn</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
